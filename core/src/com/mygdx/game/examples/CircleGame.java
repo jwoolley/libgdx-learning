@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.examples;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.graphics.RGBColor;
 
 import java.util.Random;
 
@@ -78,29 +79,6 @@ public class CircleGame extends ApplicationAdapter {
       }
     });
   }
-
-  class RGBColor{
-    public RGBColor() {
-      this(0.0f,0.0f,0.0f);
-    }
-
-    public RGBColor(float r, float g, float b) {
-      this(r, g, b,1.0f);
-    }
-
-    public RGBColor(float r, float g, float b, float a) {
-      this.colorR = r;
-      this.colorG = g;
-      this.colorB = b;
-      this.colorA = a;
-    }
-
-    float colorR;
-    float colorG ;
-    float colorB;
-    float colorA;
-  }
-
 
   @Override
   public void render () {
