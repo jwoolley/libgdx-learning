@@ -27,7 +27,7 @@ public class RandomWalk extends ApplicationAdapter {
   int xSwitchTickCountdown = 0;
   int ySwitchTickCountdown = 0;
 
-  static final float POINT_COLOR_DELTA = 0.01f;
+  static final float POINT_COLOR_DELTA = 0.0075f;
   float pointColorR = 0.5f;
   float pointColorG = 0.5f;
   float pointColorB = 0.5f;
