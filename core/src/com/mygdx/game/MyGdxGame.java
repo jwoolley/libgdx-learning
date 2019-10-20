@@ -31,8 +31,8 @@ public class MyGdxGame extends ApplicationAdapter {
 //	int xSwitchTickCountdown = 0;
 //	int ySwitchTickCountdown = 0;
 
-	static final float POINT_COLOR_DELTA = 0.00175f;
-	RGBColor shapeColor = new RGBColor(RANDOM.nextFloat(), RANDOM.nextFloat(), RANDOM.nextFloat(), 1.0f);
+	static final float POINT_COLOR_DELTA = 0.0025f;
+	RGBColor shapeColor = randomizedColor();
 
 	@Override
 	public void create () {
@@ -107,22 +107,23 @@ public class MyGdxGame extends ApplicationAdapter {
 
 
 		if (Gdx.input.isTouched()) {
+			randomizeColor(shapeColor);
 			circleX = Gdx.input.getX();
 			circleY = Gdx.graphics.getHeight() - Gdx.input.getY();
 		}
 
-		if ((Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) && circleY + circleRadius < Gdx.graphics.getHeight()) {
+		if ((Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) && circleY + circleRadius < Gdx.graphics.getHeight()) {
+			updateColor(shapeColor);
 			circleY += deltaY;
+		} else if ((Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) && circleY - circleRadius > 0) {
 			updateColor(shapeColor);
-		} else if ((Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) && circleY - circleRadius > 0) {
 			circleY -= deltaY;
-			updateColor(shapeColor);
 		}
 
-		if ((Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) && circleX - circleRadius > 0) {
+		if ((Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) && circleX - circleRadius > 0) {
 			circleX -= deltaX;
 			updateColor(shapeColor);
-		} else if ((Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) && circleX + circleRadius < Gdx.graphics.getWidth()) {
+		} else if ((Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) && circleX + circleRadius < Gdx.graphics.getWidth()) {
 			circleX += deltaX;
 			updateColor(shapeColor);
 		}
@@ -148,6 +149,52 @@ public class MyGdxGame extends ApplicationAdapter {
 		currentColor.colorG = updateColorChannel(currentColor.colorG);
 		currentColor.colorB = updateColorChannel(currentColor.colorB);
 		return  currentColor;
+	}
+
+	private RGBColor randomizedColor() {
+		return new RGBColor(RANDOM.nextFloat(), RANDOM.nextFloat(), RANDOM.nextFloat());
+	}
+
+	private RGBColor randomizeColor(RGBColor currentColor) {
+		currentColor.colorR = RANDOM.nextFloat();
+		currentColor.colorG = RANDOM.nextFloat();
+		currentColor.colorB = RANDOM.nextFloat();
+		return currentColor;
+	}
+
+	private RGBColor randomizeColorOneChannel(RGBColor currentColor) {
+		if (RANDOM.nextBoolean()) {
+			if (RANDOM.nextBoolean()) {
+				currentColor.colorR = RANDOM.nextFloat();
+			} else {
+				currentColor.colorG = RANDOM.nextFloat();
+			}
+		} else {
+			if (RANDOM.nextBoolean()) {
+				currentColor.colorB = RANDOM.nextFloat();
+			} else {
+				return randomizeColorOneChannel(currentColor);
+			}
+		}
+		return currentColor;
+	}
+
+	private RGBColor updateOneColorChannel(RGBColor currentColor) {
+
+		if (RANDOM.nextBoolean()) {
+			if (RANDOM.nextBoolean()) {
+				currentColor.colorR = updateColorChannel(currentColor.colorR);
+			} else {
+				currentColor.colorG = updateColorChannel(currentColor.colorG);
+			}
+		} else {
+			if (RANDOM.nextBoolean()) {
+				currentColor.colorB = updateColorChannel(currentColor.colorB);
+			} else {
+				currentColor = randomizeColorOneChannel(currentColor);
+			}
+		}
+		return currentColor;
 	}
 
 	private float updateColorChannel(float currentValue) {
