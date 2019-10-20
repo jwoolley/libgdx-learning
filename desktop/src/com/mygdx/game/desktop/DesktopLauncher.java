@@ -17,7 +17,7 @@ public class DesktopLauncher {
 		RANDOM_WALK;
 	}
 
-	static final Mode MODE = Mode.CONTROLLER_TEST;
+	static final Mode MODE = Mode.RANDOM_WALK;
 
 	static final Map<Mode,  Function<Void, ApplicationAdapter>> modes = new HashMap<Mode, Function<Void, ApplicationAdapter>>() { {
 		put(Mode.CONTROLLER_TEST, (v) -> new MyGdxGame());

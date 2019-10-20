@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class RandomWalk extends ApplicationAdapter {
   ShapeRenderer shapeRenderer;
@@ -15,12 +16,9 @@ public class RandomWalk extends ApplicationAdapter {
 
   final Random RANDOM = new Random();
 
-  static final float circleRadius = 1.5f;
+  static final float circleRadius = 2.25f;
   float circleX = 200;
   float circleY = 100;
-//
-//	float xSpeed = 60; // px per second
-//	float ySpeed = 60; // px per second
 
   float xSpeed = 1; // px per second
   float ySpeed = 1; // px per second
@@ -41,17 +39,17 @@ public class RandomWalk extends ApplicationAdapter {
 
   @Override
   public void render () {
-    if (xSwitchTickCountdown == 0 && (circleX < 0 + circleRadius|| circleX > Gdx.graphics.getWidth() - circleRadius)) {
+    if (circleX < 0 + circleRadius || circleX > Gdx.graphics.getWidth() - circleRadius) {
       xSpeed *= -1;
       xSwitchTickCountdown = SWITCH_TICK_COOLDOWN;
-    } else if (RANDOM.nextBoolean()) {
+    } else if (xSwitchTickCountdown == 0 && RANDOM.nextBoolean()) {
       xSpeed *= -1;
     }
 
-    if (ySwitchTickCountdown == 0 && (circleY < 0 + circleRadius || circleY > Gdx.graphics.getHeight() - circleRadius)) {
+    if (circleY < 0 + circleRadius || circleY > Gdx.graphics.getHeight() - circleRadius) {
       ySpeed *= -1;
       ySwitchTickCountdown = SWITCH_TICK_COOLDOWN;
-    } else if (RANDOM.nextBoolean()) {
+    } else if (ySwitchTickCountdown == 0 && RANDOM.nextBoolean()) {
       ySpeed *= -1;
     }
 
@@ -62,9 +60,6 @@ public class RandomWalk extends ApplicationAdapter {
     pointColorG = updateColorChannel(pointColorG);
     pointColorB = updateColorChannel(pointColorB);
 
-    //		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
-    //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
     shapeRenderer.setColor(pointColorR, pointColorG, pointColorB, 1);
     shapeRenderer.circle(circleX, circleY, circleRadius);
@@ -72,9 +67,11 @@ public class RandomWalk extends ApplicationAdapter {
 
     if (xSwitchTickCountdown > 0) {
       xSwitchTickCountdown--;
+      System.out.println("Waiting on tick countdown X: " + xSwitchTickCountdown);
     }
     if (ySwitchTickCountdown > 0) {
       ySwitchTickCountdown--;
+      System.out.println("Waiting on tick countdown Y: " + ySwitchTickCountdown);
     }
   }
 
