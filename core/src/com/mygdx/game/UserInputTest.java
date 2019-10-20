@@ -26,9 +26,22 @@ public class UserInputTest extends ApplicationAdapter {
 	float targetCircleY = 300;
 
 	static final float playerRadius = 30.0f;
-	static final float targetRadius = 24.0f;
-	static final float deltaX = 3.0f;
-	static final float deltaY = 3.0f;
+	static final float targetStartRadius = 24.0f;
+
+	static final float targetRadiusDelta = 0.25f;
+
+
+	static final float DELTA_X_BASE = 3.0f;
+	static final float DELTA_Y_BASE = 3.0f;
+
+	static final float DELTA_X_SPEED_FACTOR = 1.5f;
+	static final float DELTA_Y_SPEED_FACTOR = 1.5f;
+
+	static float targetRadius = 24.0f;
+
+	float deltaX = DELTA_X_BASE;
+	float deltaY = DELTA_Y_BASE;
+
 	static final float POINT_COLOR_DELTA = 0.002f;
 
 	RGBColor playerColor = randomizedColor();
@@ -99,31 +112,43 @@ public class UserInputTest extends ApplicationAdapter {
 			playerMoved = true;
 		}
 
-		if ((Gdx.input.isKeyJustPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) && circleY + playerRadius < Gdx.graphics.getHeight()) {
-			circleY += deltaY;
+		final boolean isRunning =
+				Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
+
+		if ((Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyJustPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)) && circleY + playerRadius < Gdx.graphics.getHeight()) {
+			circleY += deltaY * (isRunning ? DELTA_Y_SPEED_FACTOR : 1.0f);
 			playerMoved = true;
-		} else if ((Gdx.input.isKeyJustPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) && circleY - playerRadius > 0) {
-			circleY -= deltaY;
+		} else if ((Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyJustPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)) && circleY - playerRadius > 0) {
+			circleY -= deltaY * (isRunning ? DELTA_Y_SPEED_FACTOR : 1.0f);
 			playerMoved = true;
 		}
 
-		if ((Gdx.input.isKeyJustPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) && circleX - playerRadius > 0) {
-			circleX -= deltaX;
+		if ((Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyJustPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) && circleX - playerRadius > 0) {
+			circleX -= deltaX * (isRunning ? DELTA_X_SPEED_FACTOR : 1.0f);
 			playerMoved = true;
-		} else if ((Gdx.input.isKeyJustPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) && circleX + playerRadius < Gdx.graphics.getWidth()) {
-			circleX += deltaX;
+		} else if ((Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT)) && circleX + playerRadius < Gdx.graphics.getWidth()) {
+			circleX += deltaX * (isRunning ? DELTA_X_SPEED_FACTOR : 1.0f);
 			playerMoved = true;
 		}
 
-		Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
+		Gdx.gl.glClearColor(.20f, .20f, .20f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		boolean collision = false;
 		if (playerMoved) {
-			boolean collision = circlesOverlap(circleX, circleY, playerRadius, targetCircleX, targetCircleY, targetRadius * 0.25f);
+			collision = circlesOverlap(circleX, circleY, playerRadius, targetCircleX, targetCircleY, targetRadius * 0.25f);
 			if (collision) {
 				System.out.println("Collision detected!");
-				respawnTarget(circleX, circleY, playerRadius, targetRadius);
+				respawnTarget(circleX, circleY, playerRadius, targetStartRadius);
 				score++;
+			}
+		}
+
+		if (!collision) {
+			if (targetRadius <= 1.0f) {
+				respawnTarget(circleX, circleY, playerRadius, targetStartRadius);
+			}	else {
+				targetRadius -= targetRadiusDelta;
 			}
 		}
 
@@ -138,7 +163,7 @@ public class UserInputTest extends ApplicationAdapter {
 		shapeRenderer.end();
 
 		sb.begin();
-		font.draw(sb, "Circles Collected: " + score, Gdx.graphics.getWidth() / 2, UI_READOUT_Y_POS);
+		font.draw(sb, "Circles Eaten  -  " + score, Gdx.graphics.getWidth() / 2 - 50, UI_READOUT_Y_POS);
 		sb.end();
 	}
 
@@ -149,18 +174,18 @@ public class UserInputTest extends ApplicationAdapter {
 		return  currentColor;
 	}
 
-	private void respawnTarget(float playerX, float playerY, float playerRadius, float targetRadius) {
-			float newTargetX = 0;
-			float newTargetY = 0;
-
+	private void respawnTarget(float _playerX, float _playerY, float _playerRadius, float _targetStartRadius) {
+			float newTargetX;
+			float newTargetY;
 			do {
-				newTargetX = playerRadius + RANDOM.nextInt((int) (Gdx.graphics.getWidth() - (playerRadius + targetRadius)));
-				newTargetY = playerRadius + RANDOM.nextInt((int) (Gdx.graphics.getHeight() - (playerRadius + targetRadius)));
-			} while (distance(playerX, playerY, newTargetX, newTargetY) < playerRadius + targetRadius + minTargetDistance);
+				newTargetX = _playerRadius + RANDOM.nextInt((int) (Gdx.graphics.getWidth() - (_playerRadius + targetStartRadius)));
+				newTargetY = _playerRadius + RANDOM.nextInt((int) (Gdx.graphics.getHeight() - (_playerRadius + targetStartRadius)));
+			} while (distance(_playerX, _playerY, newTargetX, newTargetY) < _playerRadius + _targetStartRadius + minTargetDistance);
 
 			targetCircleX = newTargetX;
 			targetCircleY = newTargetY;
 			targetColor = randomizedColor();
+			targetRadius = _targetStartRadius;
 	}
 
 	private RGBColor randomizedColor() {
