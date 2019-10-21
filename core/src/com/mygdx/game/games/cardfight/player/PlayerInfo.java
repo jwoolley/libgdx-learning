@@ -1,4 +1,4 @@
-package com.mygdx.player;
+package com.mygdx.game.games.cardfight.player;
 
 public class PlayerInfo {
   private int score;
