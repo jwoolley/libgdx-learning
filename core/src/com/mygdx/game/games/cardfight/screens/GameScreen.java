@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class GameScreen extends ScreenAdapter {
@@ -60,66 +61,20 @@ public class GameScreen extends ScreenAdapter {
     });
   }
 
-//  final Random RANDOM = new Random();
-//
-//  float circleX = 200;
-//  float circleY = 100;
-
-//  float targetCircleX = 400;
-//  float targetCircleY = 300;
-//  static final float playerStartRadius = 30.0f;
-//  static final float targetStartRadius = 24.0f;
-//
-//  static final float targetRadiusDelta = 0.25f;
-//
-//  static final float playerRadiusStartingDelta = 0.10f;
-//  static float playerRadiusDelta = playerRadiusStartingDelta;
-//
-//
-//  static final float DELTA_X_BASE = 3.0f;
-//  static final float DELTA_Y_BASE = 3.0f;
-//
-//  static final float DELTA_X_SPEED_FACTOR = 1.5f;
-//  static final float DELTA_Y_SPEED_FACTOR = 1.5f;
-//
-//  float playerRadius = playerStartRadius;
-//  static float targetRadius = targetStartRadius;
-//
-//  float deltaX = DELTA_X_BASE;
-//  float deltaY = DELTA_Y_BASE;
-//
-//  static final float POINT_COLOR_DELTA = 0.002f;
-
-  static final int UI_READOUT_Y_POS = 20;
-
   int score = 0;
-
-  int minTargetDistance;
 
   @Override
   public void render (float delta) {
-    if (Gdx.input.isTouched()) {
-//      circleY = Gdx.graphics.getHeight() - Math.min(Math.max(Gdx.input.getY(), playerRadius), Gdx.graphics.getHeight() - playerRadius);
-    }
-
-    final boolean isRunning =
-        Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
-
-    if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-
-    }
+    game.updateMousePosition(Gdx.input.getX(), Gdx.input.getY());
 
     Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     sb.begin();
 
-
-
     sb.draw(backgroundImage, 0, 0);
 
     CardFight.combatUi.render(sb);
-//    font.draw(sb, "Circles Eaten  -  " + score, Gdx.graphics.getWidth() / 2 - 50, UI_READOUT_Y_POS);
     sb.end();
   }
 
