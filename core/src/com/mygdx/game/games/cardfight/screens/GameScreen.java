@@ -55,7 +55,7 @@ public class GameScreen extends ScreenAdapter {
 
       @Override
       public boolean touchDown(int x, int y, int pointer, int button) {
-        CardFight.mouseButtonDown = !CardFight.mouseButtonDown;
+        CardFight.mouseButtonStateChanged = !CardFight.mouseButtonDown;
         CardFight.mouseButtonDown = true;
         return true;
       }

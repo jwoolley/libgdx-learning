@@ -127,12 +127,6 @@ public class AbstractCard {
     final int mouseX = CardFight.getMouseX();
     final int mouseY = CardFight.getMouseY();
 
-//    return (selected || !cardSelected)
-//        && mouseX >= xPos
-//        && mouseX <= xPos + DEFAULT_WIDTH
-//        && mouseY >= CardFight.getScreenHeight() - (yPos + DEFAULT_HEIGHT)
-//        && mouseY <= CardFight.getScreenHeight() - yPos;
-//
     return mouseX >= xPos
         && mouseX <= xPos + DEFAULT_WIDTH
         && mouseY >= CardFight.getScreenHeight() - (yPos + DEFAULT_HEIGHT)
