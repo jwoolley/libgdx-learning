@@ -7,6 +7,7 @@ import com.mygdx.game.games.cardfight.cards.HealingPotion;
 import com.mygdx.game.games.cardfight.cards.QuickenPotion;
 import com.mygdx.game.games.cardfight.cards.SimpleAttack;
 import com.mygdx.game.games.cardfight.ui.CombatUi;
+import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,11 @@ public class Player {
         break;
     }
 
+
     for (AbstractCard c : hand) {
+      ScreenPosition nudge = c.getNudgeDimensions();
+      c.xPos += nudge.x;
+      c.yPos += nudge.y;
       c.render(sb);
     }
   }

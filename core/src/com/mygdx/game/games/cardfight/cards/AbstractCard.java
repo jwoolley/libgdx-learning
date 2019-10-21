@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.CardFight;
-import com.mygdx.game.games.cardfight.player.Player;
+import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 
-import javax.smartcardio.Card;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +20,7 @@ public class AbstractCard {
   private Texture image;
   private Texture frame;
   private static Texture glowBorder;
+  private boolean selected = false;
 
   public int xPos = 0;
   public int yPos = 0;
@@ -33,10 +33,17 @@ public class AbstractCard {
   private static final String DEFAULT_GLOW_BORDER_FILENAME = "glow-border-1.png";
   private static final int DEFAULT_GLOW_BORDER_MARGIN_SIZE = 10;
 
+  private static int SELECTED_NUDGE_DIST_X = -3;
+  private static int SELECTED_NUDGE_DIST_Y = 3;
+
+  private ScreenPosition nudgeDimensions = new ScreenPosition(0,0);
+
   private static final String DEFAULT_FRAME_FILENAME = "custom-frame-1.png";
   private static final int DEFAULT_FRAME_TITLEBAR_HEIGHT = 22;
 
   private static final int DEFAULT_FRAME_X_INDENT = 10;
+
+  static boolean cardSelected = false;
 
   enum CardFrame {
     Default(DEFAULT_FRAME_FILENAME, DEFAULT_FRAME_TITLEBAR_HEIGHT);
@@ -78,10 +85,41 @@ public class AbstractCard {
     renderFrame(sb);
     renderTitle(sb);
     renderGlow(sb);
+
+    // TODO: this should go in an update() method, not render()
+    handleClick();
+  }
+
+  private void handleClick() {
+    if (isHovered() && !cardSelected && !selected && CardFight.mouseButtonDown && CardFight.mouseButtonStateChanged) {
+      System.out.println("AbstractCard::handleClick " + name + " clicked");
+      setSelected();
+    } else if (selected && !CardFight.mouseButtonDown) {
+      System.out.println("AbstractCard::handleClick " + name + " released");
+      setUnselected();
+    }
   }
 
   private void renderImage(SpriteBatch sb) {
     sb.draw(image, xPos, yPos);
+  }
+
+  private void setSelected() {
+    this.selected = true;
+    cardSelected = true;
+    nudgeDimensions.x = SELECTED_NUDGE_DIST_X;
+    nudgeDimensions.y = SELECTED_NUDGE_DIST_Y;
+  }
+
+  public ScreenPosition getNudgeDimensions() {
+    return nudgeDimensions;
+  }
+
+  private void setUnselected() {
+    this.selected = false;
+    cardSelected = false;
+    nudgeDimensions.x = 0;
+    nudgeDimensions.y = 0;
   }
 
 
@@ -89,6 +127,12 @@ public class AbstractCard {
     final int mouseX = CardFight.getMouseX();
     final int mouseY = CardFight.getMouseY();
 
+//    return (selected || !cardSelected)
+//        && mouseX >= xPos
+//        && mouseX <= xPos + DEFAULT_WIDTH
+//        && mouseY >= CardFight.getScreenHeight() - (yPos + DEFAULT_HEIGHT)
+//        && mouseY <= CardFight.getScreenHeight() - yPos;
+//
     return mouseX >= xPos
         && mouseX <= xPos + DEFAULT_WIDTH
         && mouseY >= CardFight.getScreenHeight() - (yPos + DEFAULT_HEIGHT)
@@ -96,7 +140,7 @@ public class AbstractCard {
   }
 
   private void renderGlow(SpriteBatch sb) {
-    if (isHovered()) {
+    if (isHovered() && !cardSelected || selected) {
       sb.draw(glowBorder, xPos - DEFAULT_GLOW_BORDER_MARGIN_SIZE, yPos - DEFAULT_GLOW_BORDER_MARGIN_SIZE);
     }
   }

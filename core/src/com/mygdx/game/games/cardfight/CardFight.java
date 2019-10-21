@@ -24,6 +24,10 @@ public class CardFight extends Game implements SizedWindow {
   private static ScreenPosition screenDimensions = new ScreenPosition(WINDOW_DEFAULT_X, WINDOW_DEFAULT_Y);
   private static ScreenPosition screenPosition = new ScreenPosition(0, 0);
 
+
+  public static boolean mouseButtonDown = false;
+  public static boolean mouseButtonStateChanged = false;
+
   @Override
   public void create() {
     shapeRenderer = new ShapeRenderer();

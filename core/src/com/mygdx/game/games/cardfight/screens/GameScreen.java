@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.games.cardfight.CardFight;
-import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class GameScreen extends ScreenAdapter {
@@ -56,6 +55,15 @@ public class GameScreen extends ScreenAdapter {
 
       @Override
       public boolean touchDown(int x, int y, int pointer, int button) {
+        CardFight.mouseButtonDown = !CardFight.mouseButtonDown;
+        CardFight.mouseButtonDown = true;
+        return true;
+      }
+
+      @Override
+      public boolean touchUp(int x, int y, int pointer, int button) {
+        CardFight.mouseButtonStateChanged = CardFight.mouseButtonDown;
+        CardFight. mouseButtonDown = false;
         return true;
       }
     });
@@ -66,6 +74,8 @@ public class GameScreen extends ScreenAdapter {
   @Override
   public void render (float delta) {
     game.updateMousePosition(Gdx.input.getX(), Gdx.input.getY());
+
+    Gdx.input.isTouched();
 
     Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
