@@ -2,10 +2,7 @@ package com.mygdx.game.games.cardfight.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.games.cardfight.cards.AbstractCard;
-import com.mygdx.game.games.cardfight.cards.HealingPotion;
-import com.mygdx.game.games.cardfight.cards.QuickenPotion;
-import com.mygdx.game.games.cardfight.cards.SimpleAttack;
+import com.mygdx.game.games.cardfight.cards.*;
 import com.mygdx.game.games.cardfight.ui.CombatUi;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 
@@ -56,7 +53,6 @@ public class Player {
         break;
     }
 
-
     for (AbstractCard c : hand) {
       ScreenPosition nudge = c.getNudgeDimensions();
       c.xPos += nudge.x;
@@ -65,9 +61,32 @@ public class Player {
     }
   }
 
+  private static final AbstractCardBack cardBack = new DefaultCardBack();
+  private static final int DRAW_PILE_X_POS = 32;
+  private static final int DRAW_PILE_Y_POS = 32 + CombatUi.INFO_BAR_HEIGHT;
+  public void renderDrawPile(SpriteBatch sb){
+    cardBack.xPos = DRAW_PILE_X_POS;
+    cardBack.yPos = DRAW_PILE_Y_POS;
+    cardBack.render(sb);
+  }
+
+  private static final int DISCARD_X_POS_OFFSET = 32;
+  private static final int DISCARD_X_POS = Gdx.graphics.getWidth() - (AbstractCardBack.DEFAULT_WIDTH + DISCARD_X_POS_OFFSET);
+  private static final int DISCARD_Y_POS = 32 + CombatUi.INFO_BAR_HEIGHT;
+  private static final float DISCARD_PILE_SCALE = 0.75f;
+
+  public void renderDiscard(SpriteBatch sb){
+    if (!discardPile.isEmpty()) {
+      AbstractCard topCard = discardPile.get(0);
+      topCard.xPos = DISCARD_X_POS;
+      topCard.yPos = DISCARD_Y_POS;
+      topCard.render(sb, DISCARD_PILE_SCALE);
+    }
+  }
+
   public void dealHand() {
     final List<AbstractCard> startingHand = new ArrayList<>();
-    startingHand.add(new HealingPotion());
+    startingHand.add(new SimpleAttack());
     startingHand.add(new HealingPotion());
     startingHand.add(new QuickenPotion());
     this.hand.clear();

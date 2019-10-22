@@ -18,6 +18,8 @@ public class CombatUi {
 
   public void render(SpriteBatch sb) {
     infoPanel.render(sb);
+    CardFight.player.renderDrawPile(sb);
+    CardFight.player.renderDiscard(sb);
     CardFight.player.renderHand(sb);
   }
 }

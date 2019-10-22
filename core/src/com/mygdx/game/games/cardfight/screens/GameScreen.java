@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.cards.SimpleAttack;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class GameScreen extends ScreenAdapter {
@@ -91,6 +92,9 @@ public class GameScreen extends ScreenAdapter {
   private void startGame() {
     game.player.playerInfo.resetScore();
     game.player.dealHand();
+
+    // for testing
+    game.player.discardPile.add(new SimpleAttack());
   }
 
   private void gameOver() {
