@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.ui.ClickableUiElement;
 
-abstract public class BaseCard {
+abstract public class BaseCard implements ClickableUiElement {
   private static final String CARD_FRAME_IMAGE_DIRECTORY = "images/cards/frames/";
   private static final String CARD_BORDER_IMAGE_DIRECTORY = "images/cards/borders/";
 
@@ -59,6 +60,14 @@ abstract public class BaseCard {
   abstract public int getWidth();
   abstract public int getHeight();
 
+  public int getXPosition() {
+    return xPos;
+  }
+
+  public int getYPosition() {
+    return yPos;
+  }
+
   public void render(SpriteBatch sb) {
     this.render(sb, 1.0f);
   }
@@ -78,6 +87,20 @@ abstract public class BaseCard {
     }
   }
 
+//  protected void handleClickRelease() {
+//    if (selected) {
+//      System.out.println("BaseCard::handleClickRelease " + this.getClass().getSimpleName() +  " is selected. "
+//          + "mouseButtonDown: " + CardFight.mouseButtonDown + ", mouseButtonStateChanged: "
+//          + CardFight.mouseButtonStateChanged);
+//    }
+//    if (selected && !CardFight.mouseButtonDown && CardFight.mouseButtonStateChanged) {
+//      setUnselected();
+//      use();
+//    }
+//  }
+
+  public void use() {};
+
   protected void setSelected() {
     this.selected = true;
     cardSelected = true;
@@ -86,22 +109,13 @@ abstract public class BaseCard {
   protected void setUnselected() {
     this.selected = false;
     cardSelected = false;
+    use();
   }
 
-  public boolean isHovered() {
-    final int mouseX = CardFight.getMouseX();
-    final int mouseY = CardFight.getMouseY();
-
-    return mouseX >= xPos
-        && mouseX <= xPos + getWidth()
-        && mouseY >= CardFight.getScreenHeight() - (yPos + getHeight())
-        && mouseY <= CardFight.getScreenHeight() - yPos;
-  }
+  public boolean discardFlag = false;
 
   private void renderGlow(SpriteBatch sb, float objectScale) {
     if (isHovered() && !cardSelected || selected) {
-      System.out.println("BaseCard::renderGlow sb: " + sb + "; objectScale: " + objectScale);
-
       float xScale = objectScale * getWidth() / DEFAULT_WIDTH;
       float yScale = objectScale *  getHeight() / DEFAULT_HEIGHT;
        sb.draw(glowBorder, xPos - DEFAULT_GLOW_BORDER_MARGIN_SIZE * xScale,

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.SizedWindow;
 import com.mygdx.game.games.cardfight.player.Player;
 import com.mygdx.game.games.cardfight.screens.GameScreen;
-import com.mygdx.game.games.cardfight.ui.CombatUi;
+import com.mygdx.game.games.cardfight.ui.combat.CombatUi;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 
 public class CardFight extends Game implements SizedWindow {

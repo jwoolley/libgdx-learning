@@ -21,7 +21,6 @@ public class AbstractCard extends BaseCard {
   public final static int DEFAULT_WIDTH = 200;
   public final static int DEFAULT_HEIGHT = 295;
 
-
   private static int SELECTED_NUDGE_DIST_X = -3;
   private static int SELECTED_NUDGE_DIST_Y = 3;
 
@@ -61,6 +60,17 @@ public class AbstractCard extends BaseCard {
     CardFight.font.draw(sb, name,
         xPos + DEFAULT_FRAME_X_INDENT,
         yPos + (DEFAULT_HEIGHT + (float) cardFrame.getTitleBarHeight() / 2 - 18) * objectScale);
+  }
+
+  public void onClick() {
+    use();
+  }
+
+  public void onClickRelease() {}
+
+  public void use() {
+    super.use();
+    discardFlag = true;
   }
 
   @Override

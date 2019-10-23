@@ -1,9 +1,8 @@
-package com.mygdx.game.games.cardfight.ui;
+package com.mygdx.game.games.cardfight.ui.combat;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.CardFight;
-
-import javax.smartcardio.Card;
+import com.mygdx.game.games.cardfight.ui.InfoPanel;
 
 public class CombatUi {
 

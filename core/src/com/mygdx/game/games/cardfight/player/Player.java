@@ -3,13 +3,15 @@ package com.mygdx.game.games.cardfight.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.cards.*;
-import com.mygdx.game.games.cardfight.ui.CombatUi;
+import com.mygdx.game.games.cardfight.ui.combat.CombatUi;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player {
+  public static final int STARTING_HAND_SIZE = 3;
 
   public final List<AbstractCard> decklist;
   public final List<AbstractCard> deck;
@@ -53,11 +55,19 @@ public class Player {
         break;
     }
 
+    List<AbstractCard> discardList = new ArrayList<>();
     for (AbstractCard c : hand) {
-      ScreenPosition nudge = c.getNudgeDimensions();
-      c.xPos += nudge.x;
-      c.yPos += nudge.y;
-      c.render(sb);
+      if (c.discardFlag) {
+        discardList.add(c);
+      } else {
+        ScreenPosition nudge = c.getNudgeDimensions();
+        c.xPos += nudge.x;
+        c.yPos += nudge.y;
+        c.render(sb);
+      }
+    }
+    for (AbstractCard c : discardList) {
+      cardToDiscardPile(c);
     }
   }
 
@@ -84,11 +94,21 @@ public class Player {
     }
   }
 
+  public void cardToDiscardPile(AbstractCard card) {
+    if (hand.contains(card)) {
+      hand.remove(card);
+    }
+    discardPile.add(0, card);
+  }
+
   public void dealHand() {
+    deck.clear();
+    deck.addAll(decklist);
+    Collections.shuffle(deck);
+
     final List<AbstractCard> startingHand = new ArrayList<>();
-    startingHand.add(new SimpleAttack());
-    startingHand.add(new HealingPotion());
-    startingHand.add(new QuickenPotion());
+    startingHand.addAll(deck.subList(0,STARTING_HAND_SIZE));
+    deck.removeAll(startingHand);
     this.hand.clear();
     this.hand.addAll(startingHand);
   }

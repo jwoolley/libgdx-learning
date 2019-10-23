@@ -40,6 +40,9 @@ public class AbstractCardBack extends BaseCard {
     return DEFAULT_HEIGHT;
   }
 
+  public void onClick() { }
+  public void onClickRelease() {}
+
   private void renderImage(SpriteBatch sb) {
     sb.draw(image, xPos, yPos);
   }

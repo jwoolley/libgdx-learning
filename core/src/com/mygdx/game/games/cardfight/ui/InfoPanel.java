@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.player.PlayerInfo;
+import com.mygdx.game.games.cardfight.ui.combat.CombatUi;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class InfoPanel {
