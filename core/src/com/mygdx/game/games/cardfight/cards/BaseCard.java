@@ -22,7 +22,7 @@ abstract public class BaseCard implements ClickableUiElement {
   private static final String DEFAULT_GLOW_BORDER_FILENAME = "glow-border-1.png";
   private static final int DEFAULT_GLOW_BORDER_MARGIN_SIZE = 10;
 
-  private static final String DEFAULT_FRAME_FILENAME = "custom-frame-1.png";
+  private static final String DEFAULT_FRAME_FILENAME = "custom-frame-2.png";
   private static final int DEFAULT_FRAME_TITLEBAR_HEIGHT = 22;
 
   static boolean cardSelected = false;
