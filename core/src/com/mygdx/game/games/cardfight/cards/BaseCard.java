@@ -76,6 +76,9 @@ abstract public class BaseCard implements ClickableUiElement {
     renderGlow(sb, objectScale);
 
     // TODO: this should go in an update() method, not render()
+  }
+
+  public void update() {
     handleClick();
   }
 

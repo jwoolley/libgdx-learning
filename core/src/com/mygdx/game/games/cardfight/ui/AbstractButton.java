@@ -3,12 +3,13 @@ package com.mygdx.game.games.cardfight.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.core.Updatable;
 import com.mygdx.game.games.cardfight.CardFight;
 
 import java.util.HashMap;
 import java.util.Map;
 
-abstract public class AbstractButton {
+abstract public class AbstractButton implements ClickableUiElement, Updatable {
   private static final String UI_IMAGE_DIRECTORY = "images/ui/";
   private final String key;
   private final String text;
@@ -27,14 +28,11 @@ abstract public class AbstractButton {
   public int height = 0;
   public boolean canNudge = true;
 
-  private static final String DEFAULT_GLOW_BORDER_FILENAME = "glow-border-1.png";
-  private static final int DEFAULT_GLOW_BORDER_MARGIN_SIZE = 10;
+//  private static final String DEFAULT_GLOW_BORDER_FILENAME = "glow-border-1.png";
+//  private static final int DEFAULT_GLOW_BORDER_MARGIN_SIZE = 10;
 
-  private static final String DEFAULT_FRAME_FILENAME = "custom-frame-1.png";
-  private static final int DEFAULT_FRAME_TITLEBAR_HEIGHT = 22;
-
-  private static int SELECTED_NUDGE_DIST_X = -3;
-  private static int SELECTED_NUDGE_DIST_Y = 3;
+  private static int SELECTED_NUDGE_DIST_X = -1;
+  private static int SELECTED_NUDGE_DIST_Y = 1;
 
   private ScreenPosition nudgeDimensions = new ScreenPosition(0,0);
 
@@ -49,30 +47,51 @@ abstract public class AbstractButton {
     this.image = buttonMap.get(key);
   }
 
-  public void render(SpriteBatch sb, float objectScale) {
-    renderImage(sb, objectScale);
-    renderText(sb, objectScale);
+  public void render(SpriteBatch sb) {
+    render(sb, 1.0f);
   }
 
-    private void renderImage(SpriteBatch sb, float objectScale) {
+  public void render(SpriteBatch sb, float objectScale) {
+    ScreenPosition nudge = getNudgeDimensions();
+    xPos += nudge.x;
+    yPos += nudge.y;
+
+    renderImage(sb, objectScale);
+    renderText(sb, objectScale);
+
+    xPos -= nudge.x;
+    yPos -= nudge.y;
+  }
+
+  private void renderImage(SpriteBatch sb, float objectScale) {
     sb.draw(image, xPos, yPos, getWidth() * objectScale, getHeight() * objectScale);
+  }
+
+  public int getXPosition() {
+    return xPos;
+  }
+
+  public int getYPosition() {
+    return yPos;
   }
 
   abstract public int getTextWidth();
 
   public int getTextHeight() {
-    return (int)CardFight.font.getLineHeight();
-  };
-    private void renderText(SpriteBatch sb, float objectScale) {
-    final int textLengthInPx = 40;
+    return (int)CardFight.font.getCapHeight();
+  }
+
+  private void renderText(SpriteBatch sb, float objectScale) {
     CardFight.font.draw(sb, text,
-        xPos + getWidth() / 2 - textLengthInPx,
-        yPos + (DEFAULT_HEIGHT + (float)getTextHeight() / 2) * objectScale);
+        xPos + (float)getWidth() / 2 - getTextWidth(),
+        yPos + ((float)getHeight()/2 + (float)getTextHeight()/2) * objectScale);
   }
 
   abstract public void use();
 
   protected void setSelected() {
+    System.out.println("AbstractButton::setSelected called for  " + this.getClass().getSimpleName());
+
     this.selected = true;
     if (canNudge) {
       nudgeDimensions.x = SELECTED_NUDGE_DIST_X;
@@ -81,6 +100,8 @@ abstract public class AbstractButton {
   }
 
   protected void setUnselected() {
+    System.out.println("AbstractButton::setUnselected called for  " + this.getClass().getSimpleName());
+
     this.selected = false;
     if (canNudge) {
       nudgeDimensions.x = 0;
@@ -88,14 +109,31 @@ abstract public class AbstractButton {
     }
   }
 
-    public int getWidth() {
+  public int getWidth() {
     return DEFAULT_WIDTH;
   }
     public int getHeight() {
     return DEFAULT_HEIGHT;
   }
 
-    public ScreenPosition getNudgeDimensions() {
+   public ScreenPosition getNudgeDimensions() {
     return nudgeDimensions;
   }
+
+  public void update() {
+    handleClick();
+  }
+
+  protected void handleClick() {
+    if (isHovered() && !selected && CardFight.mouseButtonDown && CardFight.mouseButtonStateChanged) {
+      setSelected();
+    } else if (selected && !CardFight.mouseButtonDown) {
+      setUnselected();
+    }
+  }
+
+
+  public void onClick() {}
+
+  public void onClickRelease() {}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.core.Updatable;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.cards.HealingPotion;
 import com.mygdx.game.games.cardfight.cards.QuickenPotion;
@@ -16,7 +17,7 @@ import com.mygdx.game.games.cardfight.cards.SimpleAttack;
 import com.mygdx.game.games.cardfight.cards.SimpleDefend;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
-public class GameScreen extends ScreenAdapter {
+public class GameScreen extends ScreenAdapter implements Updatable {
   private final String BACKGROUND_IMG_DIR = "background/1600x1000/";
   private final String BACKGROUND_IMG_FILENAME_1 = "basic-village-1.jpg";
   private Texture backgroundImage;
@@ -77,6 +78,9 @@ public class GameScreen extends ScreenAdapter {
 
   @Override
   public void render (float delta) {
+    // TODO: create parent updatable screen adapter and move update() to the render() method in that superclass
+    //  then call super.render() from here
+    update();
     game.updateMousePosition(Gdx.input.getX(), Gdx.input.getY());
 
     Gdx.input.isTouched();
@@ -92,6 +96,11 @@ public class GameScreen extends ScreenAdapter {
     sb.end();
   }
 
+  @Override
+  public void update() {
+    CardFight.combatUi.update();
+  }
+
   private void startGame() {
     CardFight.player.decklist.add(new SimpleAttack());
     CardFight.player.decklist.add(new SimpleAttack());
@@ -104,9 +113,6 @@ public class GameScreen extends ScreenAdapter {
 
     CardFight.player.playerInfo.resetScore();
     CardFight.player.dealHand();
-
-//    // for testing
-//    game.player.discardPile.add(new SimpleDefend());
   }
 
   private void gameOver() {

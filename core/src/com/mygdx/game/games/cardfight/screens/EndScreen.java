@@ -8,9 +8,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.core.Updatable;
 import com.mygdx.game.games.cardfight.CardFight;
 
-public class EndScreen extends ScreenAdapter {
+public class EndScreen extends ScreenAdapter implements Updatable  {
   CardFight game;
   final ShapeRenderer shapeRenderer;
   final SpriteBatch sb;
@@ -60,4 +61,7 @@ public class EndScreen extends ScreenAdapter {
   public void hide(){
     Gdx.input.setInputProcessor(null);
   }
+
+  @Override
+  public void update() {}
 }

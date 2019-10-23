@@ -28,8 +28,8 @@ public class Player {
     playerInfo = new PlayerInfo();
   }
 
+  // TODO: move to hand/cardgroup class
   public void renderHand(SpriteBatch sb) {
-
     final int screenXCenter = Gdx.graphics.getWidth() / 2;
     // TODO: scale these values according to screen scale
     switch (this.hand.size()) {
