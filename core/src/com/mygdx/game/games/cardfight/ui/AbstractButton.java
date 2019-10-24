@@ -77,14 +77,10 @@ abstract public class AbstractButton implements ClickableUiElement, Updatable {
 
   abstract public int getTextWidth();
 
-  public int getTextHeight() {
-    return (int)CardFight.font.getCapHeight();
-  }
-
   private void renderText(SpriteBatch sb, float objectScale) {
     CardFight.font.draw(sb, text,
         xPos + (float)getWidth() / 2 - getTextWidth(),
-        yPos + ((float)getHeight()/2 + (float)getTextHeight()/2) * objectScale);
+        yPos + ((float)getHeight()/2 + (float)CardFight.getTextHeight(CardFight.font)/2) * objectScale);
   }
 
   abstract public void use();
@@ -107,6 +103,8 @@ abstract public class AbstractButton implements ClickableUiElement, Updatable {
       nudgeDimensions.x = 0;
       nudgeDimensions.y = 0;
     }
+
+    use();
   }
 
   public int getWidth() {

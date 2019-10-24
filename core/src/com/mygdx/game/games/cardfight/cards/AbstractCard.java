@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class AbstractCard extends BaseCard {
   private static final String CARD_IMAGE_DIRECTORY = "images/cards/artwork/";
-  private final String key;
+  public final String key;
   private final String name;
   private final CardFrame cardFrame;
   private Texture image;

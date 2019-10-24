@@ -1,7 +1,9 @@
 package com.mygdx.game.games.cardfight.ui;
 
+import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.player.Player;
+
 public class DrawButton extends AbstractButton {
-  // TODO: calculate this instead of fudging it
   public static final String KEY = "DrawButton";
   public static final String TEXT = "Draw";
 
@@ -38,6 +40,21 @@ public class DrawButton extends AbstractButton {
 
   @Override
   public void use() {
-    System.out.println("DrawButton.use called");
+    System.out.println("Draw button clicked.");
+    Player player = CardFight.player;
+
+    if (player.hand.size() < Player.STARTING_HAND_SIZE) {
+
+      System.out.println("Initiating draw or shuffle action.");
+        if (player.deck.size() == 0) {
+          System.out.println("Initiating shuffle action.");
+
+          player.initiateShuffleDiscardIntoDeck();
+        } else {
+          System.out.println("Initiating draw action.");
+
+          player.drawTopCardFromDeck();
+        }
+    }
   }
 }

@@ -24,7 +24,6 @@ public class CardFight extends Game implements SizedWindow {
   private static ScreenPosition screenDimensions = new ScreenPosition(WINDOW_DEFAULT_X, WINDOW_DEFAULT_Y);
   private static ScreenPosition screenPosition = new ScreenPosition(0, 0);
 
-
   public static boolean mouseButtonDown = false;
   public static boolean mouseButtonStateChanged = false;
 
@@ -75,5 +74,10 @@ public class CardFight extends Game implements SizedWindow {
 
   public static int getMouseY() {
     return screenPosition.y;
+  }
+
+  // TODO: maintain a map of fonts; move to font utility class
+  public static int getTextHeight(BitmapFont _font) {
+    return (int)CardFight.font.getCapHeight();
   }
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -18,6 +19,7 @@ import com.mygdx.game.games.cardfight.cards.SimpleDefend;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class GameScreen extends ScreenAdapter implements Updatable {
+  public static final Color DEFAULT_FONT_COLOR = Color.WHITE.cpy();
   private final String BACKGROUND_IMG_DIR = "background/1600x1000/";
   private final String BACKGROUND_IMG_FILENAME_1 = "basic-village-1.jpg";
   private Texture backgroundImage;
@@ -87,6 +89,8 @@ public class GameScreen extends ScreenAdapter implements Updatable {
 
     Gdx.gl.glClearColor(.25f, .25f, .25f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+    font.setColor(DEFAULT_FONT_COLOR);
 
     sb.begin();
 

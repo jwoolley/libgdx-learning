@@ -116,6 +116,8 @@ abstract public class BaseCard implements ClickableUiElement {
   }
 
   public boolean discardFlag = false;
+  public boolean handFromDeckFlag = false;
+  public boolean deckFromDiscardFlag = false;
 
   private void renderGlow(SpriteBatch sb, float objectScale) {
     if (isHovered() && !cardSelected || selected) {
