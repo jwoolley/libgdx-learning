@@ -48,11 +48,10 @@ public class DrawButton extends AbstractButton {
       System.out.println("Initiating draw or shuffle action.");
         if (player.deck.size() == 0) {
           System.out.println("Initiating shuffle action.");
-
           player.initiateShuffleDiscardIntoDeck();
+          CardFight.playSound("SFX_SHUFFLE_CARDS_1");
         } else {
           System.out.println("Initiating draw action.");
-
           player.drawTopCardFromDeck();
         }
     }

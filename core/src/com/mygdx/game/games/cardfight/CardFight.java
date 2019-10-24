@@ -1,6 +1,8 @@
 package com.mygdx.game.games.cardfight;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -9,6 +11,9 @@ import com.mygdx.game.games.cardfight.player.Player;
 import com.mygdx.game.games.cardfight.screens.GameScreen;
 import com.mygdx.game.games.cardfight.ui.combat.CombatUi;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CardFight extends Game implements SizedWindow {
   public static final int WINDOW_DEFAULT_X = 1600;
@@ -27,15 +32,38 @@ public class CardFight extends Game implements SizedWindow {
   public static boolean mouseButtonDown = false;
   public static boolean mouseButtonStateChanged = false;
 
+  private static Map<String, Sound> SOUND_MAP = new HashMap<>();
+
   @Override
   public void create() {
     shapeRenderer = new ShapeRenderer();
     sb = new SpriteBatch();
     font = new BitmapFont();
 
+    initializeSounds();
+
     player = new Player();
     combatUi = new CombatUi();
     setScreen(new GameScreen(this));
+  }
+
+  private static final String SOUND_ASSET_DIRECTORY = "audio/sounds/";
+
+  private Sound createSound(String filename) {
+    return Gdx.audio.newSound(Gdx.files.internal(SOUND_ASSET_DIRECTORY + filename));
+  }
+
+  private void initializeSounds() {
+    SOUND_MAP.put("SFX_SHUFFLE_CARDS_1", createSound("SFX_ShuffleCards_1.ogg"));
+  }
+
+  public static void playSound(String key) {
+    if (SOUND_MAP.containsKey(key)) {
+      System.out.println("Playing sound: " + key);
+      SOUND_MAP.get(key).play();
+    } else {
+      System.out.println("Sound not found: " + key);
+    }
   }
 
   @Override
