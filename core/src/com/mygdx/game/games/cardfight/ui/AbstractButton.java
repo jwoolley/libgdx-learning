@@ -31,8 +31,8 @@ abstract public class AbstractButton implements ClickableUiElement, Updatable {
 //  private static final String DEFAULT_GLOW_BORDER_FILENAME = "glow-border-1.png";
 //  private static final int DEFAULT_GLOW_BORDER_MARGIN_SIZE = 10;
 
-  private static int SELECTED_NUDGE_DIST_X = -1;
-  private static int SELECTED_NUDGE_DIST_Y = 1;
+  private static int SELECTED_NUDGE_DIST_X = 1;
+  private static int SELECTED_NUDGE_DIST_Y = -1;
 
   private ScreenPosition nudgeDimensions = new ScreenPosition(0,0);
 
