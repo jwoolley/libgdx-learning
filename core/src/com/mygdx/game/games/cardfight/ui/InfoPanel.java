@@ -11,7 +11,7 @@ import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class InfoPanel {
   private static final String IMG_FILEPATH = "ui/status-bar.png";
-  private final Color HEALTH_INFO_COLOR = Color.RED.cpy();
+  private final Color HEALTH_INFO_COLOR = Color.SCARLET;
 
   private static final int HEALTH_X_OFFSET = 24;
   private static final int HEALTH_Y_OFFSET = 5;

@@ -1,7 +1,9 @@
 package com.mygdx.game.games.cardfight.cards;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
@@ -11,6 +13,10 @@ import java.util.Map;
 
 public class AbstractCard extends BaseCard {
   private static final String CARD_IMAGE_DIRECTORY = "images/cards/artwork/";
+  private final Color CARD_TITLE_COLOR = Color.WHITE.cpy();
+  private final Color CARD_TEXT_COLOR = Color.WHITE.cpy();
+
+
   public final String key;
   private final String name;
   private final CardFrame cardFrame;
@@ -57,7 +63,9 @@ public class AbstractCard extends BaseCard {
   }
 
   private void renderTitle(SpriteBatch sb, float objectScale) {
-    CardFight.font.draw(sb, name,
+    BitmapFont font = CardFight.font;
+    font.setColor(CARD_TEXT_COLOR);
+    font.draw(sb, name,
         xPos + DEFAULT_FRAME_X_INDENT,
         yPos + (DEFAULT_HEIGHT + (float) cardFrame.getTitleBarHeight() / 2 - 18) * objectScale);
   }
