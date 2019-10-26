@@ -40,20 +40,19 @@ public class DrawButton extends AbstractButton {
 
   @Override
   public void use() {
-    System.out.println("Draw button clicked.");
     Player player = CardFight.player;
-
     if (player.hand.size() < Player.STARTING_HAND_SIZE) {
-
+//      CardFight.playSound("SFX_UI_CLICK_1");
       System.out.println("Initiating draw or shuffle action.");
         if (player.deck.size() == 0) {
           System.out.println("Initiating shuffle action.");
           player.initiateShuffleDiscardIntoDeck();
-          CardFight.playSound("SFX_SHUFFLE_CARDS_1");
         } else {
           System.out.println("Initiating draw action.");
           player.drawTopCardFromDeck();
         }
+    } else {
+      CardFight.playSound("SFX_UI_CLICK_MUFFLED_1");
     }
   }
 }

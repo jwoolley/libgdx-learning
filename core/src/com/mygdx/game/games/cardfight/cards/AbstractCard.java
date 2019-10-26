@@ -70,11 +70,10 @@ public class AbstractCard extends BaseCard {
         yPos + (DEFAULT_HEIGHT + (float) cardFrame.getTitleBarHeight() / 2 - 18) * objectScale);
   }
 
-  public void onClick() {
-    use();
+  @Override
+  public void onSetSelected() {
+    CardFight.playSound("SFX_UI_CLICK_2");
   }
-
-  public void onClickRelease() {}
 
   public void use() {
     super.use();

@@ -55,6 +55,10 @@ public class CardFight extends Game implements SizedWindow {
 
   private void initializeSounds() {
     SOUND_MAP.put("SFX_SHUFFLE_CARDS_1", createSound("SFX_ShuffleCards_1.ogg"));
+    SOUND_MAP.put("SFX_UI_CLICK_1", createSound("SFX_UiClick_1.ogg"));
+    SOUND_MAP.put("SFX_UI_CLICK_2", createSound("SFX_UiClick_2.ogg"));
+    SOUND_MAP.put("SFX_UI_CLICK_MUFFLED_1", createSound("SFX_UiClickMuffled_1.ogg"));
+
   }
 
   public static void playSound(String key) {

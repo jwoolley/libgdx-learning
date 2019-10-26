@@ -98,6 +98,7 @@ public class Player {
     }
 
     if (shuffleDeck) {
+      CardFight.playSound("SFX_SHUFFLE_CARDS_1");
       // TODO: move to util method (so we can e.g. hook into shuffling)
       Collections.shuffle(deck);
       shuffleDeck = false;

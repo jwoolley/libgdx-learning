@@ -73,22 +73,33 @@ abstract public class BaseCard implements ClickableUiElement {
   }
 
   public void render(SpriteBatch sb, float objectScale) {
-    renderGlow(sb, objectScale);
-
-    // TODO: this should go in an update() method, not render()
+    if (renderGlowFlag) {
+      renderGlow(sb, objectScale);
+    }
   }
 
   public void update() {
     handleClick();
+    renderGlowFlag = isHovered() && !cardSelected || selected;
   }
 
   protected void handleClick() {
     if (isHovered() && !cardSelected && !selected && CardFight.mouseButtonDown && CardFight.mouseButtonStateChanged) {
       setSelected();
+      onSetSelected();
     } else if (selected && !CardFight.mouseButtonDown) {
       setUnselected();
+      onSetUnselected();
     }
   }
+
+  public void onClick() {}
+
+  public void onClickRelease() {}
+
+  public void onSetSelected() {}
+
+  public void onSetUnselected() {}
 
 //  protected void handleClickRelease() {
 //    if (selected) {
@@ -97,7 +108,7 @@ abstract public class BaseCard implements ClickableUiElement {
 //          + CardFight.mouseButtonStateChanged);
 //    }
 //    if (selected && !CardFight.mouseButtonDown && CardFight.mouseButtonStateChanged) {
-//      setUnselected();
+//      setUntargeted();
 //      use();
 //    }
 //  }
@@ -119,14 +130,14 @@ abstract public class BaseCard implements ClickableUiElement {
   public boolean handFromDeckFlag = false;
   public boolean deckFromDiscardFlag = false;
 
+  boolean renderGlowFlag = false;
+
   private void renderGlow(SpriteBatch sb, float objectScale) {
-    if (isHovered() && !cardSelected || selected) {
       float xScale = objectScale * getWidth() / DEFAULT_WIDTH;
       float yScale = objectScale *  getHeight() / DEFAULT_HEIGHT;
        sb.draw(glowBorder, xPos - DEFAULT_GLOW_BORDER_MARGIN_SIZE * xScale,
       yPos - DEFAULT_GLOW_BORDER_MARGIN_SIZE * yScale,
            objectScale * (getWidth() + xScale * 2 * DEFAULT_GLOW_BORDER_MARGIN_SIZE),
            objectScale * (getHeight() + yScale * 2 * DEFAULT_GLOW_BORDER_MARGIN_SIZE));
-    }
   }
 }

@@ -9,7 +9,7 @@ import com.mygdx.game.games.cardfight.CardFight;
 import java.util.HashMap;
 import java.util.Map;
 
-abstract public class AbstractButton implements ClickableUiElement, Updatable {
+abstract public class AbstractButton implements HoverableUiElement, Updatable {
   private static final String UI_IMAGE_DIRECTORY = "images/ui/";
   private final String key;
   private final String text;
@@ -86,7 +86,7 @@ abstract public class AbstractButton implements ClickableUiElement, Updatable {
   abstract public void use();
 
   protected void setSelected() {
-    System.out.println("AbstractButton::setSelected called for  " + this.getClass().getSimpleName());
+    System.out.println("AbstractButton::setTargeted called for  " + this.getClass().getSimpleName());
 
     this.selected = true;
     if (canNudge) {
@@ -96,7 +96,7 @@ abstract public class AbstractButton implements ClickableUiElement, Updatable {
   }
 
   protected void setUnselected() {
-    System.out.println("AbstractButton::setUnselected called for  " + this.getClass().getSimpleName());
+    System.out.println("AbstractButton::setUntargeted called for  " + this.getClass().getSimpleName());
 
     this.selected = false;
     if (canNudge) {
