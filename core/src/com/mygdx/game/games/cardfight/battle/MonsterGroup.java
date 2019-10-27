@@ -1,6 +1,6 @@
 package com.mygdx.game.games.cardfight.battle;
 
-import com.mygdx.game.games.cardfight.monsters.AbstractMonster;
+import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 
 import java.util.ArrayList;
 import java.util.Collections;

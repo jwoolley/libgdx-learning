@@ -1,4 +1,4 @@
-package com.mygdx.game.games.cardfight;
+package com.mygdx.game.core;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.ui.HoverableUiElement;

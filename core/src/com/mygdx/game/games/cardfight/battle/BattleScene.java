@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.core.Renderable;
 import com.mygdx.game.core.Updatable;
-import com.mygdx.game.games.cardfight.monsters.AbstractMonster;
+import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 
 public class BattleScene implements Updatable, Renderable {
 

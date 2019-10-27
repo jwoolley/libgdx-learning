@@ -1,6 +1,6 @@
-package com.mygdx.game.games.cardfight.monsters;
+package com.mygdx.game.games.cardfight.units.monsters;
 
-import com.mygdx.game.games.cardfight.Hitbox;
+import com.mygdx.game.core.Hitbox;
 
 public class Slug extends  AbstractMonster {
   public static final String KEY = "Unit:Slug";

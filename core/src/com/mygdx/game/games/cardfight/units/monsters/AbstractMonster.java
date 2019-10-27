@@ -1,6 +1,7 @@
-package com.mygdx.game.games.cardfight.monsters;
+package com.mygdx.game.games.cardfight.units.monsters;
 
-import com.mygdx.game.games.cardfight.Hitbox;
+import com.mygdx.game.core.Hitbox;
+import com.mygdx.game.games.cardfight.units.AbstractUnit;
 
 public class AbstractMonster extends AbstractUnit {
   public static String MONSTER_IMAGE_PATH = "monsters/";

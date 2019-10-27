@@ -1,7 +1,9 @@
 package com.mygdx.game.games.cardfight.ui;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.player.Player;
+import com.mygdx.game.games.cardfight.ui.fonts.FontUtil;
 
 public class DrawButton extends AbstractButton {
   public static final String KEY = "DrawButton";
@@ -32,10 +34,6 @@ public class DrawButton extends AbstractButton {
     this.height = HEIGHT;
     this.xPos = X_POS;
     this.yPos = Y_POS;
-  }
-
-  public int getTextWidth() {
-    return textWidth;
   }
 
   @Override

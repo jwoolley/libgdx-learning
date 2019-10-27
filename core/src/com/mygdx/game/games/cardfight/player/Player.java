@@ -8,6 +8,7 @@ import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.cards.*;
 import com.mygdx.game.games.cardfight.ui.combat.CombatUi;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
+import com.mygdx.game.games.cardfight.ui.fonts.FontUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -117,13 +118,13 @@ public class Player {
   }
 
   // TODO: scale this text according to screen scale (Get card-in-hand size / standard card size from AbstractCard)
-  private static final int DRAW_PILE_TEXT_X_SHIFT = -8;
   private static final int DRAW_PILE_TEXT_Y_PADDING = 4;
 
   private void renderDrawPileText(SpriteBatch sb) {
     BitmapFont font = CardFight.font;
+    String deckSize = "" + deck.size();
     font.setColor(Color.YELLOW.cpy());
-    font.draw(sb, "" + deck.size(), DRAW_PILE_X_POS + (float)cardBack.getWidth() / 2 + DRAW_PILE_TEXT_X_SHIFT,
+    font.draw(sb, deckSize, DRAW_PILE_X_POS + (cardBack.getWidth() - FontUtil.getTextWidth(font, deckSize)) / 2,
         DRAW_PILE_Y_POS - ((float)CardFight.getTextHeight(CardFight.font)/2 + DRAW_PILE_TEXT_Y_PADDING));
   }
 

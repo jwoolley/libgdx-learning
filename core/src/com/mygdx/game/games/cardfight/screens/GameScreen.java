@@ -18,8 +18,8 @@ import com.mygdx.game.games.cardfight.cards.HealingPotion;
 import com.mygdx.game.games.cardfight.cards.QuickenPotion;
 import com.mygdx.game.games.cardfight.cards.SimpleAttack;
 import com.mygdx.game.games.cardfight.cards.SimpleDefend;
-import com.mygdx.game.games.cardfight.monsters.AbstractMonster;
-import com.mygdx.game.games.cardfight.monsters.Slug;
+import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
+import com.mygdx.game.games.cardfight.units.monsters.Slug;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class GameScreen extends ScreenAdapter implements Updatable {

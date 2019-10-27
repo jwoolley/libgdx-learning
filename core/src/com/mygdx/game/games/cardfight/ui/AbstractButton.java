@@ -2,9 +2,11 @@ package com.mygdx.game.games.cardfight.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.core.Updatable;
 import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.ui.fonts.FontUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +14,7 @@ import java.util.Map;
 abstract public class AbstractButton implements HoverableUiElement, Updatable {
   private static final String UI_IMAGE_DIRECTORY = "images/ui/";
   private final String key;
-  private final String text;
+  private final String label;
   private Texture image;
 
   private final static Map<String, Texture> buttonMap = new HashMap<>();
@@ -36,15 +38,19 @@ abstract public class AbstractButton implements HoverableUiElement, Updatable {
 
   private ScreenPosition nudgeDimensions = new ScreenPosition(0,0);
 
-  public AbstractButton(String key, String text, String imgPath) {
+  public AbstractButton(String key, String label, String imgPath) {
     super();
     this.key = key;
-    this.text = text;
+    this.label = label;
 
     if (!buttonMap.containsKey(key)) {
       buttonMap.put(key, new Texture(Gdx.files.internal(UI_IMAGE_DIRECTORY + imgPath)));
     }
     this.image = buttonMap.get(key);
+  }
+
+  public BitmapFont getLabelFont() {
+    return CardFight.font;
   }
 
   public void render(SpriteBatch sb) {
@@ -75,11 +81,13 @@ abstract public class AbstractButton implements HoverableUiElement, Updatable {
     return yPos;
   }
 
-  abstract public int getTextWidth();
+  public float getTextWidth() {
+    return FontUtil.getTextWidth(getLabelFont(), label);
+  }
 
   private void renderText(SpriteBatch sb, float objectScale) {
-    CardFight.font.draw(sb, text,
-        xPos + (float)getWidth() / 2 - getTextWidth(),
+    CardFight.font.draw(sb, label,
+        xPos + (getWidth() -  getTextWidth()) / 2,
         yPos + ((float)getHeight()/2 + (float)CardFight.getTextHeight(CardFight.font)/2) * objectScale);
   }
 
