@@ -42,7 +42,7 @@ public class DrawButton extends AbstractButton {
   public void use() {
     Player player = CardFight.player;
     if (player.hand.size() < Player.STARTING_HAND_SIZE) {
-//      CardFight.playSound("SFX_UI_CLICK_1");
+      CardFight.playSound("SFX_UI_CLICK_1");
       System.out.println("Initiating draw or shuffle action.");
         if (player.deck.size() == 0) {
           System.out.println("Initiating shuffle action.");
