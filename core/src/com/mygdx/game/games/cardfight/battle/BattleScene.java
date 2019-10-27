@@ -21,7 +21,7 @@ public class BattleScene implements Updatable, Renderable {
   }
 
   public void addMonster(AbstractMonster monster, int x, int y) {
-    monster.hitbox.setPosition(x, y);
+    monster.reposition(x, y);
     this.monsterGroup.addMonster(monster);
   }
 
@@ -33,6 +33,14 @@ public class BattleScene implements Updatable, Renderable {
   public void update() {
     for (AbstractMonster monster : monsterGroup.monsters) {
       monster.update();
+    }
+
+    // FOR DEBUGGING
+    if (!monsterGroup.monsters.isEmpty()) {
+      final AbstractMonster monster = monsterGroup.monsters.get(0);
+      if (monster.getHealth() == monster.getMaxHealth()) {
+        monster.decreaseHealth((int)(0.25f * monster.getMaxHealth()));
+      }
     }
   }
 

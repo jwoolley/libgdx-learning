@@ -21,7 +21,6 @@ abstract public class AbstractButton implements HoverableUiElement, Updatable {
 
   public final static int DEFAULT_WIDTH = 200;
   public final static int DEFAULT_HEIGHT = 295;
-  private static Texture glowBorder;
   private boolean selected = false;
 
   public int xPos = 0;
@@ -29,9 +28,6 @@ abstract public class AbstractButton implements HoverableUiElement, Updatable {
   public int width = 0;
   public int height = 0;
   public boolean canNudge = true;
-
-//  private static final String DEFAULT_GLOW_BORDER_FILENAME = "glow-border-1.png";
-//  private static final int DEFAULT_GLOW_BORDER_MARGIN_SIZE = 10;
 
   private static int SELECTED_NUDGE_DIST_X = 1;
   private static int SELECTED_NUDGE_DIST_Y = -1;

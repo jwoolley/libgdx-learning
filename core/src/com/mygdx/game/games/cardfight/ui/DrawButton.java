@@ -1,16 +1,13 @@
 package com.mygdx.game.games.cardfight.ui;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.player.Player;
-import com.mygdx.game.games.cardfight.ui.fonts.FontUtil;
 
 public class DrawButton extends AbstractButton {
   public static final String KEY = "DrawButton";
   public static final String TEXT = "Draw";
 
   public static final String IMG_PATH = "combat/panel/draw-button.png";
-  private static final int textWidth = 16;
 
   public static final int X_POS = 32;
   public static final int Y_POS = 360;

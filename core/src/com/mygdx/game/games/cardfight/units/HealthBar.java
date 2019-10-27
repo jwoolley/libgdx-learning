@@ -1,8 +1,14 @@
 package com.mygdx.game.games.cardfight.units;
 
-public class HealthBar {
-  private static final int PIXELS_PER_HP = 2;
+import com.badlogic.gdx.graphics.Color;
+import com.mygdx.game.core.Hitbox;
+import com.mygdx.game.core.Renderable;
 
-  private int maxHealth;
-  private int health;
+public class HealthBar extends ResourceBar implements Renderable {
+  public static final Color BAR_COLOR = Color.SCARLET.cpy();
+  public static final RelativePosition RELATIVE_POSITION = RelativePosition.BELOW;
+
+  public HealthBar(int startingHealth, Hitbox unitHitbox) {
+    super(startingHealth, BAR_COLOR, unitHitbox, RELATIVE_POSITION);
+  }
 }

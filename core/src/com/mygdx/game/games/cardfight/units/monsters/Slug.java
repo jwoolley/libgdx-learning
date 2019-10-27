@@ -10,7 +10,9 @@ public class Slug extends  AbstractMonster {
   private static int WIDTH = 345;
   private static int HEIGHT = 300;
 
+  public static int STARTING_HEALTH = 60;
+
   public Slug(){
-    super(KEY, NAME, IMG_PATH, new Hitbox(0,0, WIDTH, HEIGHT));
+    super(KEY, NAME, IMG_PATH, new Hitbox(0,0, WIDTH, HEIGHT), STARTING_HEALTH);
   }
 }
