@@ -68,10 +68,12 @@ abstract public class BaseCard implements ClickableUiElement {
     return yPos;
   }
 
+  @Override
   public void render(SpriteBatch sb) {
     this.render(sb, 1.0f);
   }
 
+  @Override
   public void render(SpriteBatch sb, float objectScale) {
     if (renderGlowFlag) {
       renderGlow(sb, objectScale);

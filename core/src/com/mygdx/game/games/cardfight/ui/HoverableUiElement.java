@@ -1,8 +1,9 @@
 package com.mygdx.game.games.cardfight.ui;
 
+import com.mygdx.game.core.Renderable;
 import com.mygdx.game.games.cardfight.CardFight;
 
-public interface HoverableUiElement {
+public interface HoverableUiElement extends Renderable {
   int getXPosition();
   int getYPosition();
   int getWidth();

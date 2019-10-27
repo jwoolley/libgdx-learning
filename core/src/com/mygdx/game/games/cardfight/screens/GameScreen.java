@@ -12,10 +12,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.core.Updatable;
 import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.battle.BattleScene;
+import com.mygdx.game.games.cardfight.battle.MonsterGroup;
 import com.mygdx.game.games.cardfight.cards.HealingPotion;
 import com.mygdx.game.games.cardfight.cards.QuickenPotion;
 import com.mygdx.game.games.cardfight.cards.SimpleAttack;
 import com.mygdx.game.games.cardfight.cards.SimpleDefend;
+import com.mygdx.game.games.cardfight.monsters.AbstractMonster;
+import com.mygdx.game.games.cardfight.monsters.Slug;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 public class GameScreen extends ScreenAdapter implements Updatable {
@@ -28,6 +32,8 @@ public class GameScreen extends ScreenAdapter implements Updatable {
   final ShapeRenderer shapeRenderer;
   final SpriteBatch sb;
   final BitmapFont font;
+
+  private BattleScene battleScene;
 
   public GameScreen(CardFight game) {
     this.game = game;
@@ -95,7 +101,7 @@ public class GameScreen extends ScreenAdapter implements Updatable {
     sb.begin();
 
     sb.draw(backgroundImage, 0, 0);
-
+    battleScene.render(sb);
     CardFight.combatUi.render(sb);
     sb.end();
   }
@@ -103,9 +109,33 @@ public class GameScreen extends ScreenAdapter implements Updatable {
   @Override
   public void update() {
     CardFight.combatUi.update();
+    battleScene.update();
   }
 
   private void startGame() {
+    initializeCards();
+    initializeBattleScene();
+    CardFight.player.playerInfo.resetScore();
+    CardFight.player.dealHand();
+  }
+
+  private MonsterGroup initializeMonsters() {
+    MonsterGroup group = new MonsterGroup();
+    group.addMonster(new Slug());
+    return group;
+  }
+
+  private void initializeBattleScene() {
+    MonsterGroup monsterGroup = initializeMonsters();
+    this.battleScene = new BattleScene();
+
+    // TODO: monster group should track monster positions
+    for (AbstractMonster monster : monsterGroup.getMonsters()) {
+      battleScene.addMonster(monster);
+    }
+  }
+
+  private void initializeCards() {
     CardFight.player.decklist.add(new SimpleAttack());
     CardFight.player.decklist.add(new SimpleAttack());
     CardFight.player.decklist.add(new SimpleAttack());
@@ -115,8 +145,7 @@ public class GameScreen extends ScreenAdapter implements Updatable {
     CardFight.player.decklist.add(new HealingPotion());
     CardFight.player.decklist.add(new QuickenPotion());
 
-    CardFight.player.playerInfo.resetScore();
-    CardFight.player.dealHand();
+
   }
 
   private void gameOver() {

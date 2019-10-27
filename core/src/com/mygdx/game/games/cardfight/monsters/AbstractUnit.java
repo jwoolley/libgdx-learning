@@ -65,7 +65,11 @@ abstract public class AbstractUnit implements HoverableUiElement {
     sb.draw(image, getXPosition(), getYPosition(), getWidth() * objectScale, getHeight() * objectScale);
   }
 
-  public void update() { }
+  public void update() {
+    if (this.isHovered()) {
+      System.out.println("AbstractUnit::update hovered over " + this.getClass().getSimpleName());
+    }
+  }
 
 
   protected void setTargeted() {
