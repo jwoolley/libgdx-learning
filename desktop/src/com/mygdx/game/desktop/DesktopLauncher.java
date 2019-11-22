@@ -1,14 +1,10 @@
 package com.mygdx.game.desktop;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.SizedWindow;
-import com.mygdx.game.examples.CircleGame;
-import com.mygdx.game.examples.ImageLoader;
-import com.mygdx.game.examples.UserInputTest;
-import com.mygdx.game.examples.RandomWalk;
+import com.mygdx.game.examples.*;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.circlegamealpha.CircleGameAlpha;
 
@@ -22,7 +18,8 @@ public class DesktopLauncher {
 //	static final Mode MODE = Mode.RANDOM_WALK;
 //	static final Mode MODE = Mode.CIRCLE_GAME;
 //	static final Mode MODE = Mode.CIRCLE_GAME_ALPHA;
-	static final Mode MODE = Mode.CARD_FIGHT;
+//	static final Mode MODE = Mode.CARD_FIGHT;
+	static final Mode MODE = Mode.TEXT_LAYOUT;
 
 	enum Mode {
 		IMAGE_LOADER,
@@ -30,7 +27,8 @@ public class DesktopLauncher {
 		RANDOM_WALK,
 		CIRCLE_GAME,
 		CIRCLE_GAME_ALPHA,
-		CARD_FIGHT;
+		CARD_FIGHT,
+		TEXT_LAYOUT;
 	}
 
 	static final Map<Mode,  Function<Void, ApplicationListener>> modes = new HashMap<Mode, Function<Void, ApplicationListener>>() { {
@@ -40,6 +38,7 @@ public class DesktopLauncher {
 		put(Mode.CIRCLE_GAME, (v) -> new CircleGame());
 		put(Mode.CIRCLE_GAME_ALPHA, (v) -> new CircleGameAlpha());
 		put(Mode.CARD_FIGHT, (v) -> new CardFight());
+		put(Mode.TEXT_LAYOUT, (v) -> new TextLayoutTest());
 	}};
 
 	public static void main (String[] arg) {
