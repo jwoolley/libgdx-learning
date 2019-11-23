@@ -32,6 +32,8 @@ public class CardFight extends Game implements SizedWindow {
   public static boolean mouseButtonDown = false;
   public static boolean mouseButtonStateChanged = false;
 
+  public static GameManager gameManager;
+
   private static Map<String, Sound> SOUND_MAP = new HashMap<>();
 
   @Override
@@ -44,7 +46,13 @@ public class CardFight extends Game implements SizedWindow {
 
     player = new Player();
     combatUi = new CombatUi();
-    setScreen(new GameScreen(this));
+    final GameScreen screen = new GameScreen(this);
+    setScreen(screen);
+    gameManager = new GameManager(screen);
+  }
+
+  public GameManager getGameManager() {
+    return gameManager;
   }
 
   private static final String SOUND_ASSET_DIRECTORY = "audio/sounds/";

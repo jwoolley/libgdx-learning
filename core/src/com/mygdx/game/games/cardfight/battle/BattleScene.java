@@ -6,6 +6,8 @@ import com.mygdx.game.core.Renderable;
 import com.mygdx.game.core.Updatable;
 import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 
+import java.util.List;
+
 public class BattleScene implements Updatable, Renderable {
 
   public static final int MONSTER_DEFAULT_Y = 750;
@@ -23,6 +25,10 @@ public class BattleScene implements Updatable, Renderable {
   public void addMonster(AbstractMonster monster, int x, int y) {
     monster.reposition(x, y);
     this.monsterGroup.addMonster(monster);
+  }
+
+  public List<AbstractMonster> getMonsters() {
+    return this.monsterGroup.getMonsters();
   }
 
   public void addMonster(AbstractMonster monster) {

@@ -22,6 +22,8 @@ import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 import com.mygdx.game.games.cardfight.units.monsters.Slug;
 import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
+import java.util.List;
+
 public class GameScreen extends ScreenAdapter implements Updatable {
   public static final Color DEFAULT_FONT_COLOR = Color.WHITE.cpy();
   private final String BACKGROUND_IMG_DIR = "background/1600x1000/";
@@ -144,8 +146,6 @@ public class GameScreen extends ScreenAdapter implements Updatable {
     CardFight.player.decklist.add(new SimpleDefend());
     CardFight.player.decklist.add(new HealingPotion());
     CardFight.player.decklist.add(new QuickenPotion());
-
-
   }
 
   private void gameOver() {
@@ -175,5 +175,11 @@ public class GameScreen extends ScreenAdapter implements Updatable {
 
   private boolean circlesOverlap(float c1_x, float c1_y, float c1_radius, float c2_x, float c2_y, float c2_radius) {
     return distance(c1_x, c1_y, c2_x, c2_y) <= c1_radius + c2_radius;
+  }
+
+  public List<AbstractMonster> getMonsters() {
+    // TODO: this should be in GameManager/BattleManager
+    // TODO: check that we're currently on battle screen
+    return battleScene.getMonsters();
   }
 }

@@ -2,6 +2,7 @@ package com.mygdx.game.games.cardfight.units.monsters;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.core.Hitbox;
+import com.mygdx.game.games.cardfight.types.DamageType;
 import com.mygdx.game.games.cardfight.units.AbstractUnit;
 import com.mygdx.game.games.cardfight.units.HealthBar;
 
@@ -52,6 +53,10 @@ public class AbstractMonster extends AbstractUnit {
     final int netAmount = Math.min(amount, maxHealth - health);
     this.health += netAmount;
     this.healthBar.setValue(this.health);
+  }
+
+  public void applyDamage(int amount, DamageType damageType) {
+    decreaseHealth(amount);
   }
 
   public void decreaseHealth(int amount) {

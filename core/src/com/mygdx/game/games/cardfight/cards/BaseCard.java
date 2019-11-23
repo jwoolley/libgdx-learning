@@ -125,7 +125,9 @@ abstract public class BaseCard implements ClickableUiElement {
   protected void setUnselected() {
     this.selected = false;
     cardSelected = false;
-    use();
+    if (canUse()) {
+      use();
+    }
   }
 
   public boolean discardFlag = false;
@@ -133,6 +135,10 @@ abstract public class BaseCard implements ClickableUiElement {
   public boolean deckFromDiscardFlag = false;
 
   boolean renderGlowFlag = false;
+
+  public boolean canUse() {
+    return true;
+  }
 
   private void renderGlow(SpriteBatch sb, float objectScale) {
       float xScale = objectScale * getWidth() / DEFAULT_WIDTH;

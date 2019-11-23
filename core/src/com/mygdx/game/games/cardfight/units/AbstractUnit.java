@@ -51,4 +51,14 @@ abstract public class AbstractUnit extends TargetableEntity {
         this.hitbox.getXPosition() + (getWidth() - FontUtil.getTextWidth(CardFight.font, name)) / 2,
         getYPosition() + getHeight() + DEFAULT_NAME_OFFSET_Y);
   }
+
+  public void setTargeted() {
+    super.setTargeted();
+    System.out.println("Unit targeted: " + this.getClass().getSimpleName());
+  }
+
+  public void setUntargeted() {
+    super.setUntargeted();
+    System.out.println("Unit untargeted: " + this.getClass().getSimpleName());
+  }
 }
