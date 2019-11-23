@@ -18,8 +18,8 @@ public class DesktopLauncher {
 //	static final Mode MODE = Mode.RANDOM_WALK;
 //	static final Mode MODE = Mode.CIRCLE_GAME;
 //	static final Mode MODE = Mode.CIRCLE_GAME_ALPHA;
-//	static final Mode MODE = Mode.CARD_FIGHT;
-	static final Mode MODE = Mode.TEXT_LAYOUT;
+	static final Mode MODE = Mode.CARD_FIGHT;
+//	static final Mode MODE = Mode.TEXT_LAYOUT;
 
 	enum Mode {
 		IMAGE_LOADER,
