@@ -36,6 +36,8 @@ public class AbstractCard extends BaseCard {
   public final static int DEFAULT_DESCRIPTION_INDENT_Y = 105;
   public final static int DEFAULT_DESCRIPTION_WIDTH = 154;
 
+  public final static int  DEFAULT_TEXT_BOX_HEIGHT = 185;
+
   private static int SELECTED_NUDGE_DIST_X = -3;
   private static int SELECTED_NUDGE_DIST_Y = 3;
 
@@ -97,9 +99,14 @@ public class AbstractCard extends BaseCard {
     GlyphLayout gl = new GlyphLayout(font, getResolvedDescription(), CARD_TEXT_COLOR,
         DEFAULT_DESCRIPTION_WIDTH * objectScale, Align.center, true);
 
-    font.draw(sb, gl,
-        xPos + DEFAULT_DESCRIPTION_INDENT_X,
-        yPos + (DEFAULT_DESCRIPTION_INDENT_Y * objectScale));
+    float textXPos = xPos + DEFAULT_DESCRIPTION_INDENT_X;
+    float textYPos = yPos + (DEFAULT_DESCRIPTION_INDENT_Y * objectScale);
+
+    if (gl.height < DEFAULT_TEXT_BOX_HEIGHT * objectScale) {
+      textYPos -= ((DEFAULT_TEXT_BOX_HEIGHT - DEFAULT_DESCRIPTION_INDENT_Y - gl.height) * objectScale) / 2;
+    }
+
+    font.draw(sb, gl, textXPos, textYPos);
   }
 
   public String getDescription() {
