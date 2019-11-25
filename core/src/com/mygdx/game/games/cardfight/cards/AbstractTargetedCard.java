@@ -6,8 +6,8 @@ import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 import java.util.List;
 
 public class AbstractTargetedCard extends AbstractCard {
-  public AbstractTargetedCard(String key, String name, CardFrame cardFrame, String imgPath) {
-    super(key, name, cardFrame, imgPath);
+  public AbstractTargetedCard(String key, String name, CardFrame cardFrame, String imgPath, String description) {
+    super(key, name, cardFrame, imgPath, description);
   }
 
   protected List<AbstractMonster> getMonsters() {

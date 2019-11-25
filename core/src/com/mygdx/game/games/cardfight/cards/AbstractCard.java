@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
+import com.mygdx.game.games.cardfight.utils.TextUtil.SymbolSubstitutions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,12 @@ public class AbstractCard extends BaseCard {
 
   private static final int DEFAULT_FRAME_X_INDENT = 10;
 
+
+  protected int baseDamage = 0;
+  protected int damage = 0;
+
+  protected int baseMagicNumber = 0;
+  protected int magicNumber = 0;
 
   public AbstractCard(String key, String name, CardFrame cardFrame, String imgPath) {
     this(key, name, cardFrame, imgPath, DESCRIPTION_PLACEHOLDER);
@@ -87,12 +94,22 @@ public class AbstractCard extends BaseCard {
 
   private void renderDescription(SpriteBatch sb, float objectScale) {
     BitmapFont font = CardFight.font;
-    GlyphLayout gl = new GlyphLayout(font, this.description, CARD_TEXT_COLOR,
+    GlyphLayout gl = new GlyphLayout(font, getResolvedDescription(), CARD_TEXT_COLOR,
         DEFAULT_DESCRIPTION_WIDTH * objectScale, Align.center, true);
 
     font.draw(sb, gl,
         xPos + DEFAULT_DESCRIPTION_INDENT_X,
         yPos + (DEFAULT_DESCRIPTION_INDENT_Y * objectScale));
+  }
+
+  public String getDescription() {
+    return this.description;
+  }
+
+  protected String getResolvedDescription() {
+    String updated = SymbolSubstitutions.DAMAGE.substitute(getDescription(), "" + this.damage);
+    updated = SymbolSubstitutions.MAGIC_NUMBER.substitute(updated, "" + this.magicNumber);
+    return updated;
   }
 
   @Override

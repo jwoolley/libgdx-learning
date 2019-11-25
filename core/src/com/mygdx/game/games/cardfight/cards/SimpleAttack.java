@@ -12,14 +12,12 @@ public class SimpleAttack extends AbstractTargetedCard {
   private static final int DAMAGE = 8;
   private static final DamageType DAMAGE_TYPE = DamageType.PHYSICAL;
 
-  private final int baseDamage;
-  private int damage;
+  private static final String DESCRIPTION = "Deal #D# damage to target enemy.";
 
   public SimpleAttack() {
-    super(CARD_KEY, NAME, FRAME, IMG_PATH);
+    super(CARD_KEY, NAME, FRAME, IMG_PATH, DESCRIPTION);
     this.damage = this.baseDamage = DAMAGE;
   }
-
 
   public void use() {
     super.use();
