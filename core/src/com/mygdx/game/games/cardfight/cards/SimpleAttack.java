@@ -1,5 +1,6 @@
 package com.mygdx.game.games.cardfight.cards;
 
+import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.types.DamageType;
 import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 
@@ -28,5 +29,9 @@ public class SimpleAttack extends AbstractTargetedCard {
       // TODO: this should be a time-based action
       target.applyDamage(this.damage, DAMAGE_TYPE);
     }
+  }
+
+  protected void onUseEffects() {
+    CardFight.playSound("SFX_STRIKE_SWORD_1");
   }
 }

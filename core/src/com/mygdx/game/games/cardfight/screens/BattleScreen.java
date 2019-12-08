@@ -24,7 +24,7 @@ import com.mygdx.game.games.cardfight.utils.AssetUtil;
 
 import java.util.List;
 
-public class GameScreen extends ScreenAdapter implements Updatable {
+public class BattleScreen extends ScreenAdapter implements Updatable {
   public static final Color DEFAULT_FONT_COLOR = Color.WHITE.cpy();
   private final String BACKGROUND_IMG_DIR = "background/1600x1000/";
   private final String BACKGROUND_IMG_FILENAME_1 = "basic-village-1.jpg";
@@ -37,7 +37,7 @@ public class GameScreen extends ScreenAdapter implements Updatable {
 
   private BattleScene battleScene;
 
-  public GameScreen(CardFight game) {
+  public BattleScreen(CardFight game) {
     this.game = game;
     this.shapeRenderer = this.game.shapeRenderer;
     this.sb = this.game.sb;
@@ -62,7 +62,7 @@ public class GameScreen extends ScreenAdapter implements Updatable {
       public boolean keyTyped(char key) {
         if (key == 'c') {
         } else if (key == 'r') {
-          game.setScreen(new GameScreen(game));
+          game.setScreen(new BattleScreen(game));
           return true;
         }
         return true;
@@ -87,7 +87,7 @@ public class GameScreen extends ScreenAdapter implements Updatable {
   int score = 0;
 
   @Override
-  public void render (float delta) {
+  public void render(float delta) {
     // TODO: create parent updatable screen adapter and move update() to the render() method in that superclass
     //  then call super.render() from here
     update();

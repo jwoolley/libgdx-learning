@@ -31,14 +31,14 @@ public class EndScreen extends ScreenAdapter implements Updatable  {
         if (keyCode == Input.Keys.ESCAPE) {
           Gdx.app.exit();
         } else if (keyCode == Input.Keys.R) {
-          game.setScreen(new GameScreen(game));
+          game.setScreen(new BattleScreen(game));
         }
         return true;
       }
 
       @Override
       public boolean touchDown(int x, int y, int pointer, int button) {
-        game.setScreen(new GameScreen(game));
+        game.setScreen(new BattleScreen(game));
         return true;
       }
     });

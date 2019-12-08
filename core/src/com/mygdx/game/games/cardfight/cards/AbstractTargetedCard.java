@@ -11,7 +11,7 @@ public class AbstractTargetedCard extends AbstractCard {
   }
 
   protected List<AbstractMonster> getMonsters() {
-    return CardFight.gameManager.getMonsters();
+    return CardFight.gameManager.getBattleManager().getMonsters();
   }
 
   protected boolean hasTarget() {

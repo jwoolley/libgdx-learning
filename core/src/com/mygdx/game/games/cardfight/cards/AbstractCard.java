@@ -127,7 +127,10 @@ public class AbstractCard extends BaseCard {
   public void use() {
     super.use();
     discardFlag = true;
+    onUseEffects();
   }
+
+  protected void onUseEffects() { }
 
   @Override
   protected void setSelected() {

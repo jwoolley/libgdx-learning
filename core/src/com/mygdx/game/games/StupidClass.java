@@ -1,22 +1,22 @@
 package com.mygdx.game.games;
 
-import com.mygdx.game.games.cardfight.screens.GameScreen;
+import com.mygdx.game.games.cardfight.screens.BattleScreen;
 import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 
 import java.util.Collections;
 import java.util.List;
 
 public class StupidClass {
-    public void StupidClass(GameScreen screen) {
+    public void StupidClass(BattleScreen screen) {
       this.screen = screen;
     }
 
-    public void setScreen(GameScreen screen) {
+    public void setScreen(BattleScreen screen) {
       this.screen = screen;
     }
 
     public boolean isBattleScene() {
-      // TODO: check with GameScreen
+      // TODO: check with BattleScreen
       return true;
     }
 
@@ -28,5 +28,5 @@ public class StupidClass {
 
     }
 
-    private GameScreen screen;
+    private BattleScreen screen;
 }

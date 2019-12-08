@@ -1,32 +1,36 @@
 package com.mygdx.game.games.cardfight;
 
-import com.mygdx.game.games.cardfight.screens.GameScreen;
-import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
-
-import java.util.Collections;
-import java.util.List;
+import com.mygdx.game.games.cardfight.screens.BattleScreen;
 
 public class GameManager {
-  public GameManager(GameScreen screen) {
+  private static BattleManager battleManager;
+
+  private static ScreenType screenType;
+
+  public GameManager(BattleScreen screen) {
     this.screen = screen;
   }
 
-  public void setScreen(GameScreen screen) {
+  public void setScreen(BattleScreen screen) {
     this.screen = screen;
   }
 
-  public boolean isBattleScene() {
-    // TODO: check with GameScreen
-    return true;
+  public void startBattle() {
+    this.battleManager = new BattleManager(this.screen);
+    screenType = ScreenType.BATTLE;
   }
 
-  public List<AbstractMonster> getMonsters() {
-    if (!isBattleScene()) {
-      return Collections.emptyList();
-    }
-    return screen.getMonsters();
-
+  public void endBattle() {
+    screenType = ScreenType.MAP;
   }
 
-  private GameScreen screen;
+  private BattleScreen screen;
+
+  public BattleManager getBattleManager() {
+    return battleManager;
+  }
+
+  static {
+    screenType = ScreenType.MAP;
+  }
 }

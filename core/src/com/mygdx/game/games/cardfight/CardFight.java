@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.SizedWindow;
 import com.mygdx.game.games.cardfight.player.Player;
-import com.mygdx.game.games.cardfight.screens.GameScreen;
+import com.mygdx.game.games.cardfight.screens.BattleScreen;
 import com.mygdx.game.games.cardfight.ui.combat.CombatUi;
 import com.mygdx.game.games.cardfight.ui.ScreenPosition;
 
@@ -46,9 +46,15 @@ public class CardFight extends Game implements SizedWindow {
 
     player = new Player();
     combatUi = new CombatUi();
-    final GameScreen screen = new GameScreen(this);
+    final BattleScreen screen = new BattleScreen(this);
     setScreen(screen);
     gameManager = new GameManager(screen);
+
+    startGame();
+  }
+
+  public void startGame() {
+    gameManager.startBattle();
   }
 
   public GameManager getGameManager() {
@@ -63,6 +69,9 @@ public class CardFight extends Game implements SizedWindow {
 
   private void initializeSounds() {
     SOUND_MAP.put("SFX_SHUFFLE_CARDS_1", createSound("SFX_ShuffleCards_1.ogg"));
+    SOUND_MAP.put("SFX_STRIKE_BLUNT_1", createSound("SFX_StrikeBlunt_1.ogg"));
+    SOUND_MAP.put("SFX_STRIKE_SWORD_1", createSound("SFX_StrikeSword_1.ogg"));
+
     SOUND_MAP.put("SFX_UI_CLICK_1", createSound("SFX_UiClick_1.ogg"));
     SOUND_MAP.put("SFX_UI_CLICK_2", createSound("SFX_UiClick_2.ogg"));
     SOUND_MAP.put("SFX_UI_CLICK_MUFFLED_1", createSound("SFX_UiClickMuffled_1.ogg"));
