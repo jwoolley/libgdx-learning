@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.SizedWindow;
+import com.mygdx.game.actions.ActionManager;
 import com.mygdx.game.games.cardfight.player.Player;
 import com.mygdx.game.games.cardfight.screens.BattleScreen;
 import com.mygdx.game.games.cardfight.ui.combat.CombatUi;
@@ -34,6 +35,8 @@ public class CardFight extends Game implements SizedWindow {
 
   public static GameManager gameManager;
 
+  public static ActionManager actionManager;
+
   private static Map<String, Sound> SOUND_MAP = new HashMap<>();
 
   @Override
@@ -49,16 +52,12 @@ public class CardFight extends Game implements SizedWindow {
     final BattleScreen screen = new BattleScreen(this);
     setScreen(screen);
     gameManager = new GameManager(screen);
-
+    actionManager = new ActionManager();
     startGame();
   }
 
   public void startGame() {
     gameManager.startBattle();
-  }
-
-  public GameManager getGameManager() {
-    return gameManager;
   }
 
   private static final String SOUND_ASSET_DIRECTORY = "audio/sounds/";
@@ -68,6 +67,7 @@ public class CardFight extends Game implements SizedWindow {
   }
 
   private void initializeSounds() {
+    SOUND_MAP.put("SFX_GRUNT_PAIN_1", createSound("SFX_GruntPain_1.ogg"));
     SOUND_MAP.put("SFX_SHUFFLE_CARDS_1", createSound("SFX_ShuffleCards_1.ogg"));
     SOUND_MAP.put("SFX_STRIKE_BLUNT_1", createSound("SFX_StrikeBlunt_1.ogg"));
     SOUND_MAP.put("SFX_STRIKE_SWORD_1", createSound("SFX_StrikeSword_1.ogg"));
@@ -75,7 +75,6 @@ public class CardFight extends Game implements SizedWindow {
     SOUND_MAP.put("SFX_UI_CLICK_1", createSound("SFX_UiClick_1.ogg"));
     SOUND_MAP.put("SFX_UI_CLICK_2", createSound("SFX_UiClick_2.ogg"));
     SOUND_MAP.put("SFX_UI_CLICK_MUFFLED_1", createSound("SFX_UiClickMuffled_1.ogg"));
-
   }
 
   public static void playSound(String key) {

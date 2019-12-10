@@ -130,6 +130,11 @@ public class AbstractCard extends BaseCard {
     onUseEffects();
   }
 
+  public void discard() {
+    // TODO: should enqueue a discard action
+    discardFlag = true;
+  }
+
   protected void onUseEffects() { }
 
   @Override

@@ -37,7 +37,7 @@ public class ActionManager {
     return actionQueue.remove(0);
   }
 
-  private boolean hasCurrentAction() {
+  public boolean hasCurrentAction() {
     return currentAction != null;
   }
 

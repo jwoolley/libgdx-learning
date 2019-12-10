@@ -6,7 +6,7 @@ import com.mygdx.game.games.cardfight.types.DamageType;
 import com.mygdx.game.games.cardfight.units.AbstractUnit;
 import com.mygdx.game.games.cardfight.units.HealthBar;
 
-public class AbstractMonster extends AbstractUnit {
+public abstract class AbstractMonster extends AbstractUnit {
   public static String MONSTER_IMAGE_PATH = "monsters/";
 
   private int maxHealth;
@@ -68,6 +68,12 @@ public class AbstractMonster extends AbstractUnit {
       onHealthDepleted();
     }
   }
+
+  public boolean isDefeated() {
+    return getHealth() <= 0;
+  }
+
+  abstract public void takeTurn();
 
   public void onHealthDepleted() {};
 }

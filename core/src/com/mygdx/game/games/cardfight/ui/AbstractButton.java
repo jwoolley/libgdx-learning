@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.core.Updatable;
+import com.mygdx.game.games.cardfight.BattleManager;
 import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.GameManager;
 import com.mygdx.game.games.cardfight.ui.fonts.FontUtil;
 
 import java.util.HashMap;
@@ -134,6 +136,12 @@ abstract public class AbstractButton implements HoverableUiElement, Updatable {
     }
   }
 
+  protected static GameManager getGameManager() {
+    return CardFight.gameManager;
+  }
+  protected static BattleManager getBattleManager() {
+    return CardFight.gameManager.getBattleManager();
+  }
 
   public void onClick() {}
 

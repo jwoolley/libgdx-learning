@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.core.TargetableEntity;
 import com.mygdx.game.core.Hitbox;
+import com.mygdx.game.games.cardfight.BattleManager;
 import com.mygdx.game.games.cardfight.CardFight;
+import com.mygdx.game.games.cardfight.GameManager;
 import com.mygdx.game.games.cardfight.ui.fonts.FontUtil;
 
 abstract public class AbstractUnit extends TargetableEntity {
@@ -60,5 +62,13 @@ abstract public class AbstractUnit extends TargetableEntity {
   public void setUntargeted() {
     super.setUntargeted();
     System.out.println("Unit untargeted: " + this.getClass().getSimpleName());
+  }
+
+  protected static GameManager getGameManager() {
+    return CardFight.gameManager;
+  }
+
+  protected static BattleManager getBattleManager() {
+    return CardFight.gameManager.getBattleManager();
   }
 }

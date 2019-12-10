@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.core.Renderable;
 import com.mygdx.game.core.Updatable;
+import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.units.monsters.AbstractMonster;
 
 import java.util.List;
@@ -41,12 +42,9 @@ public class BattleScene implements Updatable, Renderable {
       monster.update();
     }
 
-    // FOR DEBUGGING
-    if (!monsterGroup.monsters.isEmpty()) {
-      final AbstractMonster monster = monsterGroup.monsters.get(0);
-      if (monster.getHealth() == monster.getMaxHealth()) {
-        monster.decreaseHealth((int)(0.25f * monster.getMaxHealth()));
-      }
+    if (!CardFight.actionManager.hasCurrentAction()
+        && !CardFight.gameManager.getBattleManager().isMonsterQueueEmpty()) {
+      CardFight.gameManager.getBattleManager().getNextMonsterFromQueue().monster.takeTurn();
     }
   }
 

@@ -110,8 +110,10 @@ public class BattleScreen extends ScreenAdapter implements Updatable {
 
   @Override
   public void update() {
+    // TODO: parent updater class should handle action manager updates
     CardFight.combatUi.update();
     battleScene.update();
+    CardFight.actionManager.update();
   }
 
   private void startGame() {

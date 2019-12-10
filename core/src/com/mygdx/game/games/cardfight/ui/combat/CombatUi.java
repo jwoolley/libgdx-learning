@@ -3,7 +3,7 @@ package com.mygdx.game.games.cardfight.ui.combat;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.games.cardfight.CardFight;
 import com.mygdx.game.games.cardfight.cards.AbstractCard;
-import com.mygdx.game.games.cardfight.ui.DrawButton;
+import com.mygdx.game.games.cardfight.ui.EndTurnButton;
 import com.mygdx.game.games.cardfight.ui.InfoPanel;
 
 public class CombatUi {
@@ -17,7 +17,7 @@ public class CombatUi {
     infoPanel = new InfoPanel();
   }
 
-  private final DrawButton drawButton = new DrawButton();
+  private final EndTurnButton drawButton = new EndTurnButton();
 
   public void render(SpriteBatch sb) {
     infoPanel.render(sb);
